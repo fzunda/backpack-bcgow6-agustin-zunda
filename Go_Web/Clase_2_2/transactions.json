@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "code": "C500",
+    "coin": "Pesos Chilenos",
+    "amount": 150,
+    "emitting": "Vendedor15",
+    "Receptor": "Comprador16",
+    "transactionDate": "2022-10-06T21:19:14.16875-03:00"
+  },
+  {
+    "id": 2,
+    "code": "J501",
+    "coin": "Dolar",
+    "amount": 6000,
+    "emitting": "Fernando",
+    "Receptor": "Denise",
+    "transactionDate": "2022-10-06T21:05:42.244627-03:00"
+  }
+]
