@@ -69,62 +69,6 @@ const docTemplate = `{
                     }
                 }
             },
-            "put": {
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Transactions"
-                ],
-                "summary": "Update transaction",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "token requerido",
-                        "name": "token",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "description": "Transaction to Update",
-                        "name": "transaction",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/handler.request"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/web.Response"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/web.Response"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/web.Response"
-                        }
-                    },
-                    "404": {
-                        "description": "Not found products",
-                        "schema": {
-                            "$ref": "#/definitions/web.Response"
-                        }
-                    }
-                }
-            },
             "post": {
                 "consumes": [
                     "application/json"
@@ -181,6 +125,184 @@ const docTemplate = `{
                     },
                     "409": {
                         "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/web.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/transactions/{Id}": {
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Update transaction",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Id transactions",
+                        "name": "Id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "token",
+                        "in": "header"
+                    },
+                    {
+                        "description": "transaction to update",
+                        "name": "transactions",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handler.request"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/web.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.Response"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/web.Response"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/web.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/transactions/{id}": {
+            "delete": {
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Delete transaction",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Transaction id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Token",
+                        "name": "token",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/web.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.Response"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/web.Response"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/web.Response"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "This endpoint update field code and amount from an transaction",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Update code and amount transactions",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token header",
+                        "name": "token",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Transaction Id",
+                        "name": "Id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "transaction to update",
+                        "name": "transactions",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handler.request"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/web.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/web.Response"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/web.Response"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
                         "schema": {
                             "$ref": "#/definitions/web.Response"
                         }

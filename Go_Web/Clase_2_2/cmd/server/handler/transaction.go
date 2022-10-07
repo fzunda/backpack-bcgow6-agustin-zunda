@@ -124,18 +124,19 @@ func (t *Transaction) Store() gin.HandlerFunc {
 	}
 }
 
-// Update Transaction godoc
+// UpdateTransactions godoc
 // @Summary  Update transaction
 // @Tags     Transactions
 // @Accept   json
 // @Produce  json
-// @Param    token    header    string          true  "token requerido"
-// @Param    transaction  body      request  true  "Transaction to Update"
+// @Param    Id       path      int             true   "Id transactions"
+// @Param    token    header    string          false  "token"
+// @Param    transactions  body      request  true   "transaction to update"
 // @Success  200      {object}  web.Response
-// @Failure  400      {object}  web.Response
 // @Failure  401      {object}  web.Response
-// @Failure  404      {object}  web.Response  "Not found products"
-// @Router   /transactions [PUT]
+// @Failure  400      {object}  web.Response
+// @Failure  404      {object}  web.Response
+// @Router   /transactions/{Id} [PUT]
 func (t *Transaction) Update() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		token := ctx.Request.Header.Get("token")
@@ -183,6 +184,20 @@ func (t *Transaction) Update() gin.HandlerFunc {
 	}
 }
 
+// Update Code and Amount Transactions godoc
+// @Summary      Update code and amount transactions
+// @Tags         Transactions
+// @Accept       json
+// @Produce      json
+// @Description  This endpoint update field code and amount from an transaction
+// @Param        token  header    string               true  "Token header"
+// @Param        Id     path      int                  true  "Transaction Id"
+// @Param        transactions  body   request          true   "transaction to update"
+// @Success      200    {object}  web.Response
+// @Failure      401    {object}  web.Response
+// @Failure      400    {object}  web.Response
+// @Failure      404    {object}  web.Response
+// @Router       /transactions/{id} [PATCH]
 func (t *Transaction) UpdateCodeAndAmount() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		token := ctx.Request.Header.Get("token")
@@ -217,6 +232,16 @@ func (t *Transaction) UpdateCodeAndAmount() gin.HandlerFunc {
 	}
 }
 
+// Delete Transaction
+// @Summary  Delete transaction
+// @Tags     Transactions
+// @Param    id     path      int     true  "Transaction id"
+// @Param    token  header    string  true  "Token"
+// @Success  200    {object}  web.Response
+// @Failure  401    {object}  web.Response
+// @Failure  400    {object}  web.Response
+// @Failure  404    {object}  web.Response
+// @Router   /transactions/{id} [DELETE]
 func (t *Transaction) Delete() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		token := ctx.Request.Header.Get("token")
