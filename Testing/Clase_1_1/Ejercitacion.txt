@@ -1,0 +1,50 @@
+RESPUESTAS
+----------
+
+Ejercicio 1 
+
+¿Cuáles son las diferencias entre White Box y Black Box? 
+
+- Una de las principales diferencias radica en el conocimiento de su codigo, ya que en el Black Box su codigo es 
+oculto y desconocido para el usuario, mientras que en el White Box es completamente visible.
+- El Black Box generalmente es usado por implementadores de software, mientras que en el White Box es usado por 
+programadores de software.
+- El Black Box no necesita comocimiento de implementación, mientras que en el White Box si.
+- El Black Box es mas una pruba funcional, mientras que el White Box es una prueba estructural de software.
+- El Black Box puede iniciarse en base al documento de especificaciones de requisitos y el White Box se inicia después
+de un documento de diseño detallado.
+- El Black Box no requiere conocimientos de programación, mientras que el White Box si.
+- Blacl Box: es la prueba del comportamiento del software, White Box: es la prueba de la logica del software.
+- Black Box: Se aplica a niveles altos del desarrollo. White Box: Se aplica a niveles mas bajos
+- Black Box: consume poco tiempo y White Box: consume mas tiempo.
+- Black Box es un testing menos exhaustivo que el White Box.
+
+
+Ejercicio 2
+
+¿Qué es un test funcional?.
+
+Son pruebas que se basan en la entrada y salida del software, con el objetivo final de comprobar que la respuesta del 
+software ante cada escenario, coincida exactamente con el resultado esperado. Son test que validan el comportamiento 
+funcional.
+
+
+Ejercicio 3
+
+¿Qué es un Test de Integración?
+
+Son aquellos que prueban la comunicación entre distintos componentes o capas de la aplicación. El objetivo es comprobar 
+que todos todos aquellos bloques de código que fueron probados de forma unitaria, interactúen y se comuniquen entre si 
+generando los resultados esperados. 
+Estos tests permiten evaluar su diseño, desempeño y comportamiento.
+
+
+Ejercicio 4
+
+Indicar las dimensiones de calidad prioritarias en MELI.
+    - Funcionalidad (Functionality)
+    - Rendimiento (Performance)
+    - Fiabilidad (Reliability)
+    - Seguridad (Security)
+    - Mantenibilidad (Maintainability)
+
