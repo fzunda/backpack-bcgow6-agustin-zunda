@@ -16,5 +16,14 @@
     "emitting": "Fernando",
     "Receptor": "Denise",
     "transactionDate": "2022-10-06T21:05:42.244627-03:00"
+  },
+  {
+    "id": 3,
+    "code": "C600",
+    "coin": "Pesos Argentinos",
+    "amount": 300,
+    "emitting": "Vendedor16",
+    "Receptor": "Comprador17",
+    "transactionDate": "2022-10-21T12:22:31.496803-03:00"
   }
 ]

@@ -115,7 +115,7 @@ func (t *Transaction) Store() gin.HandlerFunc {
 			return
 		}
 
-		c, err := t.service.Store(req.Id, req.Code, req.Coin, req.Amount, req.Emitting, req.Receptor, req.TransactionDate)
+		c, err := t.service.Store(req.Id, req.Code, req.Coin, req.Amount, req.Emitting, req.Receptor)
 		if err != nil {
 			ctx.JSON(404, web.NewResponse(401, nil, err.Error()))
 			return
@@ -175,7 +175,7 @@ func (t *Transaction) Update() gin.HandlerFunc {
 			ctx.JSON(http.StatusBadRequest, web.NewResponse(http.StatusBadRequest, nil, "El receptor es requerido"))
 			return
 		}
-		t, err := t.service.Update(id, req.Code, req.Coin, req.Amount, req.Emitting, req.Receptor, req.TransactionDate)
+		t, err := t.service.Update(id, req.Code, req.Coin, req.Amount, req.Emitting, req.Receptor)
 		if err != nil {
 			ctx.JSON(http.StatusNotFound, web.NewResponse(http.StatusNotFound, nil, err.Error()))
 			return

@@ -1,13 +1,9 @@
 package transactions
 
-import (
-	"time"
-)
-
 type Service interface {
 	GetAll() ([]Transaction, error)
-	Store(id int, code string, coin string, amount float64, emitting string, receptor string, date time.Time) (Transaction, error)
-	Update(id int, code string, coin string, amount float64, emitting string, receptor string, date time.Time) (Transaction, error)
+	Store(id int, code string, coin string, amount float64, emitting string, receptor string) (Transaction, error)
+	Update(id int, code string, coin string, amount float64, emitting string, receptor string) (Transaction, error)
 	UpdateCodeAndAmount(id int, code string, amount float64) (Transaction, error)
 	Delete(id int) error
 }
@@ -30,22 +26,16 @@ func (s *service) GetAll() ([]Transaction, error) {
 	return ts, nil
 }
 
-func (s *service) Store(id int, code string, coin string, amount float64, emitting string, receptor string, date time.Time) (Transaction, error) {
-	lastId, err := s.repository.LastId()
-	if err != nil {
-		return Transaction{}, err
-	}
-
-	lastId++
-	transaccion, err := s.repository.Store(id, code, coin, amount, emitting, receptor, date)
+func (s *service) Store(id int, code string, coin string, amount float64, emitting string, receptor string) (Transaction, error) {
+	transaccion, err := s.repository.Store(id, code, coin, amount, emitting, receptor)
 	if err != nil {
 		return Transaction{}, err
 	}
 	return transaccion, nil
 }
 
-func (s *service) Update(id int, code string, coin string, amount float64, emitting string, receptor string, date time.Time) (Transaction, error) {
-	return s.repository.Update(id, code, coin, amount, emitting, receptor, date)
+func (s *service) Update(id int, code string, coin string, amount float64, emitting string, receptor string) (Transaction, error) {
+	return s.repository.Update(id, code, coin, amount, emitting, receptor)
 }
 
 func (s *service) UpdateCodeAndAmount(id int, code string, amount float64) (Transaction, error) {

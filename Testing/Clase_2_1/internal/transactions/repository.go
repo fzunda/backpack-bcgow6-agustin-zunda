@@ -19,9 +19,9 @@ type Transaction struct {
 
 type Repository interface {
 	GetAll() ([]Transaction, error)
-	Store(id int, code string, coin string, amount float64, emitting string, receptor string, date time.Time) (Transaction, error)
+	Store(id int, code string, coin string, amount float64, emitting string, receptor string) (Transaction, error)
 	LastId() (int, error)
-	Update(id int, code string, coin string, amount float64, emitting string, receptor string, date time.Time) (Transaction, error)
+	Update(id int, code string, coin string, amount float64, emitting string, receptor string) (Transaction, error)
 	UpdateCodeAndAmount(id int, code string, amount float64) (Transaction, error)
 	Delete(id int) error
 }
@@ -57,10 +57,10 @@ func (r *repository) LastId() (int, error) {
 	return ts[len(ts)-1].Id, nil
 }
 
-func (r *repository) Store(id int, code string, coin string, amount float64, emitting string, receptor string, date time.Time) (Transaction, error) {
+func (r *repository) Store(id int, code string, coin string, amount float64, emitting string, receptor string) (Transaction, error) {
 	var ts []Transaction
 
-	date = time.Now()
+	date := time.Now()
 
 	err := r.db.Read(&ts)
 	if err != nil {
@@ -77,7 +77,7 @@ func (r *repository) Store(id int, code string, coin string, amount float64, emi
 	return t, nil
 }
 
-func (r *repository) Update(id int, code string, coin string, amount float64, emitting string, receptor string, date time.Time) (Transaction, error) {
+func (r *repository) Update(id int, code string, coin string, amount float64, emitting string, receptor string) (Transaction, error) {
 	t := Transaction{Code: code, Coin: coin, Amount: amount, Emitting: emitting, Receptor: receptor, TransactionDate: time.Now()}
 	updated := false
 
