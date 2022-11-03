@@ -39,7 +39,7 @@ Clase_2_1/internal/transactions/repository.go:165.2,165.12 1 1
 Clase_2_1/internal/transactions/repository.go:145.16,147.3 1 0
 Clase_2_1/internal/transactions/repository.go:149.20,150.21 1 1
 Clase_2_1/internal/transactions/repository.go:150.21,154.4 3 1
-Clase_2_1/internal/transactions/repository.go:156.14,158.3 1 0
+Clase_2_1/internal/transactions/repository.go:156.14,158.3 1 1
 Clase_2_1/internal/transactions/repository.go:161.39,163.3 1 0
 Clase_2_1/internal/transactions/service.go:15.39,19.2 1 0
 Clase_2_1/internal/transactions/service.go:21.51,23.16 2 0
