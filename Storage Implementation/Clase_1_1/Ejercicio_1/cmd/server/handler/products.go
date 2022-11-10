@@ -2,6 +2,7 @@ package handler
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/fzunda/backpack-bcgow6-agustin-zunda/cmd/server/handler/request"
 	domian "github.com/fzunda/backpack-bcgow6-agustin-zunda/internal/domains"
@@ -64,5 +65,57 @@ func (s *Product) Store() gin.HandlerFunc {
 			return
 		}
 		ctx.JSON(http.StatusOK, web.NewResponse(result, "", http.StatusOK))
+	}
+}
+
+func (s *Product) GetAll() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		res, err := s.service.GetAll()
+		if err != nil {
+			ctx.JSON(http.StatusNotFound, web.NewResponse(nil, err.Error(), http.StatusNotFound))
+			return
+		}
+		if len(res) == 0 {
+			ctx.JSON(404, web.NewResponse(nil, "no products stored", http.StatusNotFound))
+			return
+		}
+		ctx.JSON(http.StatusOK, web.NewResponse(res, "", http.StatusOK))
+	}
+}
+
+func (s *Product) Update() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		var req domian.Product
+		id, err := strconv.Atoi(ctx.Param("id"))
+		if err != nil {
+			ctx.JSON(http.StatusBadRequest, web.NewResponse(nil, "id is required", http.StatusBadRequest))
+		}
+
+		if err := ctx.ShouldBindJSON(&req); err != nil {
+			ctx.JSON(404, web.NewResponse(nil, err.Error(), http.StatusNotFound))
+		}
+		p, err := s.service.Update(id, req.Name, req.Type, req.Count, req.Price)
+		if err != nil {
+			ctx.JSON(404, web.NewResponse(nil, err.Error(), http.StatusNotFound))
+		}
+		ctx.JSON(http.StatusOK, web.NewResponse(p, "", http.StatusOK))
+	}
+}
+
+func (s *Product) Delete() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+
+		id, err := strconv.Atoi(ctx.Param("id"))
+		if err != nil {
+			ctx.JSON(http.StatusBadRequest, web.NewResponse(nil, "id is required", http.StatusBadRequest))
+			return
+		}
+
+		err = s.service.Delete(id)
+		if err != nil {
+			ctx.JSON(404, web.NewResponse(nil, err.Error(), http.StatusNotFound))
+			return
+		}
+		ctx.JSON(http.StatusNoContent, web.NewResponse(nil, "", http.StatusNoContent))
 	}
 }

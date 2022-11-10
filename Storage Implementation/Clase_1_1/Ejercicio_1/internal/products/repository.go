@@ -3,6 +3,7 @@ package products
 import (
 	"database/sql"
 	"fmt"
+	"log"
 
 	domian "github.com/fzunda/backpack-bcgow6-agustin-zunda/internal/domains"
 )
@@ -10,6 +11,9 @@ import (
 type Repository interface {
 	GetByName(name string) (domian.Product, error)
 	Store(prod domian.Product) (domian.Product, error)
+	GetAll() ([]domian.Product, error)
+	Update(id int, name string, productType string, count int, price float64) (domian.Product, error)
+	Delete(id int) error
 }
 
 func NewRepository(db *sql.DB) Repository {
@@ -20,13 +24,6 @@ type repository struct {
 	db *sql.DB
 }
 
-/*
-	Ejercicio 1 - Implementar GetByName()
-
-Desarrollar un método en el repositorio que permita hacer búsquedas de un producto por nombre. Para lograrlo se deberá:
-Diseñar interfaz “Repository” en la que exista un método GetByName() que reciba por parámetro un string y retorna una estructura del tipo Product.
-Implementar el método de forma que con el string recibido lo use para buscar en la DB por el campo “name”.
-*/
 func (r *repository) GetByName(name string) (domian.Product, error) {
 	stmt, err := r.db.Prepare("SELECT id, name, type, count, price FROM  products WHERE name = ?;")
 	if err != nil {
@@ -43,13 +40,6 @@ func (r *repository) GetByName(name string) (domian.Product, error) {
 	return prod, nil
 }
 
-/*
-	Ejercicio 2 - Replicar Store()
-
-Tomar el ejemplo visto en la clase y diseñar el método Store():
-Puede tomar de ejemplo la definición del método Store visto en clase para incorporarlo en la interfaz.
-Implementar el método Store.
-*/
 func (r *repository) Store(prod domian.Product) (domian.Product, error) {
 	stmt, err := r.db.Prepare("INSERT INTO products (name, type, count, price) VALUES (?, ?, ?, ?);")
 	if err != nil {
@@ -66,4 +56,54 @@ func (r *repository) Store(prod domian.Product) (domian.Product, error) {
 	prod.ID = int(insertedId)
 
 	return prod, nil
+}
+
+func (r *repository) GetAll() ([]domian.Product, error) {
+	var products []domian.Product
+	//Se prepara la consulta
+	rows, err := r.db.Query("SELECT id, name, type, count, price FROM  products;")
+	if err != nil {
+		return []domian.Product{}, fmt.Errorf("error al preparar la consulta - error %v", err)
+	}
+	//Se recorren las filas de la query
+
+	for rows.Next() {
+		var prod domian.Product
+		if err := rows.Scan(&prod.ID, &prod.Name, &prod.Type, &prod.Count, &prod.Price); err != nil {
+			log.Fatal(err)
+			return nil, err
+		}
+		products = append(products, prod)
+	}
+	return products, nil
+}
+
+func (r *repository) Update(id int, name string, productType string, count int, price float64) (domian.Product, error) {
+
+	stmt, err := r.db.Prepare("UPDATE products SET name = ?, type = ?, count = ?, price = ? WHERE id = ?;")
+	if err != nil {
+		return domian.Product{}, nil
+	}
+
+	defer stmt.Close()
+	prod := domian.Product{Name: name, Type: productType, Count: count, Price: price, ID: id}
+	_, err = stmt.Exec(name, productType, count, price, id)
+	if err != nil {
+		return domian.Product{}, nil
+	}
+	return prod, nil
+}
+
+func (r *repository) Delete(id int) error {
+	stmt, err := r.db.Prepare("DELETE FROM products WHERE id = ?;")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec(id)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
