@@ -64,6 +64,7 @@ func (r *repository) GetAll() ([]domian.Product, error) {
 	rows, err := r.db.Query("SELECT id, name, type, count, price FROM  products;")
 	if err != nil {
 		return []domian.Product{}, fmt.Errorf("error al preparar la consulta - error %v", err)
+
 	}
 	//Se recorren las filas de la query
 
